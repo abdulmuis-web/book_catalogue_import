@@ -121,7 +121,7 @@ function book_catalogue_import_schema() {
         'description' => 'received_date of the book.',
       ],
     ],
-    'primary key' => ['pid'],
+    'primary key' => ['RowID'],
     'indexes' => [
       'judul' => ['Judul'],
       'isbn' => ['ISBN'],
