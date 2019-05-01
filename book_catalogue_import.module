@@ -22,3 +22,46 @@ function book_catalogue_import_help($route_name, RouteMatchInterface $route_matc
     default:
   }
 }
+
+
+/**
+ * Implements hook_cron().
+ *
+ * We implement hook_cron() to do "background" processing. It gets called every
+ * time the Drupal cron runs. We then decide what has to happen in response.
+ *
+ * In this example, we log a message after the time given in the state value
+ * 'book_catalogue_import_cron.next_execution'. Then we update that variable to a time in the
+ * future.
+ */
+function book_catalogue_import_cron() {
+  // We access our configuration.
+  $cron_config = \Drupal::configFactory()->getEditable('book_catalogue_import_cron.settings');
+  // Default to an hourly interval. Of course, cron has to be running at least
+  // hourly for this to work.
+  $interval = $cron_config->get('interval');
+  $interval = !empty($interval) ? $interval : 60;
+  
+  // We usually don't want to act every time cron runs (which could be every
+  // minute) so keep a time for the next run in the site state.
+  $next_execution = \Drupal::state()->get('book_catalogue_import_cron.next_execution');
+  $next_execution = !empty($next_execution) ? $next_execution : 0;
+  //if (REQUEST_TIME >= $next_execution) {
+  if (REQUEST_TIME >= $next_execution) {
+	//$import = new DatabaseImportController();
+	//$book_catalogue_import = $import->database_import();
+    $notice = t('book_catalogue_import_cron REQUEST_TIME >= $next_execution executed at %time', array('%time' => date_iso8601(REQUEST_TIME)));
+  }
+  else{
+    $notice = t('book_catalogue_import_cron REQUEST_TIME < $next_execution executed at %time', array('%time' => date_iso8601(REQUEST_TIME)));
+  }
+  // This is a silly example of a cron job.
+  // It just makes it obvious that the job has run without
+  // making any changes to your database.
+  \Drupal::logger('book_catalogue_import')->notice($notice);
+  if (\Drupal::state()->get('book_catalogue_import_cron_show_status_message')) {
+      \Drupal::messenger()->addMessage(t('book_catalogue_import_cron executed at %time', ['%time' => date_iso8601(REQUEST_TIME)]));
+      \Drupal::state()->set('book_catalogue_import_cron_show_status_message', FALSE);
+  }
+  \Drupal::state()->set('book_catalogue_import_cron.next_execution', REQUEST_TIME + $interval);
+}
