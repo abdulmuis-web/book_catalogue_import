@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the book_catalogue_import module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Creates some default entries on this module custom table.
+ *
+ * @see hook_install()
+ *
+ * @ingroup book_catalogue_import
+ */
+function book_catalogue_import_install() {
+  // Insert some example data into our schema.
+  $entries = [
+    [
+      'Judul' => 'Nama Buku',
+      'Penerbit' => 'John Doe',
+      'Pengarang' => 'John Roe',
+      'Tahun' => '1999',
+      'created_date' => '',
+      'ISBN' => 0,
+      'Website' => 'john_doe.com',
+      'Email' => 'john_doe@mail.com',
+      'received_date' => '',
+    ],
+  ];
+
+  $connection = \Drupal::database();
+  foreach ($entries as $entry) {
+    $connection->insert('book_catalogue_import')->fields($entry)->execute();
+  }
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup book_catalogue_import
+ */
+function book_catalogue_import_schema() {
+  $schema['book_catalogue_import'] = [
+    'description' => 'Stores book entries for imported to book catalogue.',
+    'fields' => [
+      'RowID' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique book ID.',
+      ],
+      'Judul' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Name of the book.',
+      ],
+      'Penerbit' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Publisher of the book.',
+      ],
+      'Pengarang' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Author of the book.',
+      ],
+      'Tahun' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Creator user's {users}.uid",
+      ],
+      'created_date' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'created_date of the book.',
+      ],
+      'ISBN' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'ISBN of the book.',
+      ],
+      'Website' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => NULL,
+        'description' => 'Website of the book publisher.',
+      ],
+      'Email' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => NULL,
+        'description' => 'Email of the book publisher.',
+      ],
+      'Seri' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => NULL,
+        'description' => 'Series of the book.',
+      ],
+      'received_date' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'received_date of the book.',
+      ],
+    ],
+    'primary key' => ['pid'],
+    'indexes' => [
+      'judul' => ['Judul'],
+      'isbn' => ['ISBN'],
+      'tahun' => ['Tahun'],
+    ],
+  ];
+
+  return $schema;
+}
