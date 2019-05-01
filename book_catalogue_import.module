@@ -53,7 +53,7 @@ function book_catalogue_import_cron() {
     $notice = t('book_catalogue_import_cron REQUEST_TIME >= $next_execution executed at %time', array('%time' => date_iso8601(REQUEST_TIME)));
   }
   else{
-    $notice = t('book_catalogue_import_cron REQUEST_TIME < $next_execution executed at %time', array('%time' => date_iso8601(REQUEST_TIME)));
+    $notice = t('Starting execution of the book_catalogue_import_cron REQUEST_TIME < $next_execution executed at %time and next_execution executed at %next_execution', array('%time' => date_iso8601(REQUEST_TIME), '%next_execution') => date_iso8601($next_execution));
   }
   // This is a silly example of a cron job.
   // It just makes it obvious that the job has run without
