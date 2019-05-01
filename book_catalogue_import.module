@@ -50,7 +50,8 @@ function book_catalogue_import_cron() {
   if (REQUEST_TIME >= $next_execution) {
 	//$import = new DatabaseImportController();
 	//$book_catalogue_import = $import->database_import();
-    $notice = t('book_catalogue_import_cron REQUEST_TIME >= $next_execution executed at %time', array('%time' => date_iso8601(REQUEST_TIME)));
+    $notice = t('Starting execution of the book_catalogue_import_cron REQUEST_TIME >= $next_execution executed at %time and next_execution executed at %next_execution', 
+				array('%time' => date_iso8601(REQUEST_TIME), '%next_execution' => date_iso8601($next_execution)));
   }
   else{
     $notice = t('Starting execution of the book_catalogue_import_cron REQUEST_TIME < $next_execution executed at %time and next_execution executed at %next_execution', 
