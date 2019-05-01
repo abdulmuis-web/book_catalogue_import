@@ -1,0 +1,5 @@
+name: 'Book Catalogue Import'
+type: module
+description: 'Import book catalogue'
+core: 8.x
+package: 'Book Catalogue'

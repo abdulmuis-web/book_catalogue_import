@@ -1,0 +1,22 @@
+
+book_catalogue_import.database_import_controller_database_import:
+  path: '/book_catalogue_import/database_import'
+  defaults:
+    _controller: '\Drupal\book_catalogue_import\Controller\DatabaseImportController::database_import'
+    _title: 'Database Import'
+  requirements:
+    _permission: 'access content'
+book_catalogue_import.database_import_controller_csv_file_import:
+  path: '/book_catalogue_import/csv_file_import'
+  defaults:
+    _controller: '\Drupal\book_catalogue_import\Controller\DatabaseImportController::csv_file_import'
+    _title: 'CSV File Import'
+  requirements:
+    _permission: 'access content'
+book_catalogue_import.database_import_controller_json_file_import:
+  path: '/book_catalogue_import/json_file_import'
+  defaults:
+    _controller: '\Drupal\book_catalogue_import\Controller\DatabaseImportController::json_file_import'
+    _title: 'JSON File Import'
+  requirements:
+    _permission: 'access content'

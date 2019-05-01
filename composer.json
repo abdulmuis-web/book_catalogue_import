@@ -1,0 +1,14 @@
+{
+  "name": "drupal/book_catalogue_import",
+  "type": "drupal-module",
+  "description": "Import book catalogue",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/book_catalogue_import",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/book_catalogue_import",
+    "source": "http://cgit.drupalcode.org/book_catalogue_import"
+  },
+  "require": { }
+}
